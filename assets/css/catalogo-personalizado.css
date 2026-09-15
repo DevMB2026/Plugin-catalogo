@@ -1,0 +1,454 @@
+/* ============================================================
+   Catálogo Uniformes Monterrey (Prezenza) — CSS personalizado
+   Pega esto completo en Ajustes → Catálogo API (o Catálogo
+   Distribuidor) → "CSS personalizado del catálogo" y guarda.
+   Cubre las dos versiones del plugin a la vez (prefijos cab-/
+   catalogo-api-bridge- y cdb-/catalogo-dist-bridge-), así que
+   funciona sin cambios pegado en cualquiera de los dos paneles.
+
+   Paleta tomada directamente del sitio (home + botón "Cotizar
+   por WhatsApp" del catálogo): dorado como color de marca/acento
+   interactivo, tinta casi negra para títulos, salvia para el
+   estado "disponible" (mismo verde que el botón de WhatsApp).
+
+   Esquinas ligeramente redondeadas (no rectas, no muy curvas) y
+   bordes finos y sutiles en vez de gruesos: un radio pequeño +
+   contorno grueso se lee "infantil"/tipo sticker, mientras que un
+   radio contenido con línea delgada se ve sobrio y premium, en
+   línea con el resto del sitio.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+	--pz-gold: #ad8a3f;
+	--pz-gold-dark: #8c6d2e;
+	--pz-gold-light: #f4ead0;
+	--pz-ink: #1a1a1a;
+	--pz-sage: #4c6b5b;
+	--pz-radius: 10px;
+	--pz-radius-sm: 8px;
+	--pz-font: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.catalogo-api-bridge-grid-wrap,
+.catalogo-dist-bridge-grid-wrap,
+.catalogo-api-bridge-detail-wrap {
+	font-family: var(--pz-font);
+}
+
+/* ---------- Categorías: botones grandes ---------- */
+
+.cab-cats-title,
+.cdb-cats-title {
+	font-family: var(--pz-font);
+	font-weight: 800;
+	text-transform: uppercase;
+	letter-spacing: 0.16em;
+	color: var(--pz-ink);
+	display: flex;
+	align-items: center;
+	gap: 1.1rem;
+	padding-bottom: 0;
+}
+
+/* Línea dorada a cada lado del título, igual que "NUESTROS SERVICIOS"
+   en el home — mismo lenguaje visual, ahora también en el catálogo. */
+.cab-cats-title::before,
+.cab-cats-title::after,
+.cdb-cats-title::before,
+.cdb-cats-title::after {
+	content: '';
+	flex: 1 1 auto;
+	height: 1px;
+	background: linear-gradient(to right, transparent, var(--pz-gold));
+}
+
+.cab-cats-title::after,
+.cdb-cats-title::after {
+	background: linear-gradient(to left, transparent, var(--pz-gold));
+}
+
+.cab-cat-btn-img,
+.cdb-cat-btn-img {
+	box-shadow: 0 0 0 1px rgba(26, 26, 26, 0.1), 0 4px 10px rgba(26, 26, 26, 0.08);
+	transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.cab-cat-btn:hover .cab-cat-btn-img,
+.cab-cat-btn.active .cab-cat-btn-img,
+.cdb-cat-btn:hover .cdb-cat-btn-img,
+.cdb-cat-btn.active .cdb-cat-btn-img {
+	box-shadow: 0 0 0 3px var(--pz-gold), 0 8px 16px rgba(173, 138, 63, 0.28);
+	transform: translateY(-3px);
+}
+
+.cab-cat-btn-label,
+.cdb-cat-btn-label {
+	font-family: var(--pz-font);
+	font-weight: 700;
+	color: var(--pz-ink);
+}
+
+.cab-cat-btn.active .cab-cat-btn-label,
+.cdb-cat-btn.active .cdb-cat-btn-label {
+	color: var(--pz-gold-dark);
+}
+
+/* ---------- Tarjetas de producto ---------- */
+/* Radio contenido (no 0, no exagerado) + borde fino siempre visible,
+   para que cada tarjeta se lea como una caja bien delimitada sin
+   verse como un botón redondeado tipo app infantil. */
+
+.catalogo-api-bridge-card,
+.catalogo-dist-bridge-card {
+	border-radius: var(--pz-radius);
+	border: 1px solid rgba(26, 26, 26, 0.18);
+	box-shadow: 0 1px 2px rgba(26, 26, 26, 0.06), 0 6px 16px rgba(26, 26, 26, 0.06);
+	background: #fff;
+	transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.catalogo-api-bridge-card:hover,
+.catalogo-dist-bridge-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 10px 24px rgba(140, 109, 46, 0.2);
+	border-color: var(--pz-gold);
+}
+
+.catalogo-api-bridge-card-img,
+.catalogo-dist-bridge-card-img {
+	background: #faf8f3;
+	border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+}
+
+.catalogo-api-bridge-card-body,
+.catalogo-dist-bridge-card-body {
+	border-top: none;
+}
+
+.catalogo-api-bridge-card-brand,
+.catalogo-dist-bridge-card-brand {
+	font-family: var(--pz-font);
+	font-weight: 700;
+	color: var(--pz-gold-dark);
+}
+
+.catalogo-api-bridge-card-title,
+.catalogo-dist-bridge-card-title {
+	font-family: var(--pz-font);
+	font-weight: 600;
+	color: var(--pz-ink);
+}
+
+.catalogo-api-bridge-card-categoria,
+.catalogo-dist-bridge-card-categoria {
+	display: inline-block !important;
+	font-weight: 600;
+	color: #fff !important;
+	background: var(--pz-gold-dark) !important;
+	border-radius: 999px;
+	padding: 0.1rem 0.6rem;
+	margin-top: 0.4rem;
+}
+
+/* ---------- Layout: espaciado general ---------- */
+/* Más aire a los lados para que la cuadrícula no quede pegada al borde
+   de la página, más separación entre la cuadrícula y el aside de
+   filtros, y el aside un poco más arriba: su título interno quedaba
+   más abajo que las fotos de producto por el padding propio del
+   bloque, así que se sube un poco para emparejar la altura visual. */
+
+.catalogo-api-bridge-grid-wrap,
+.catalogo-dist-bridge-grid-wrap {
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+	box-sizing: border-box;
+}
+
+.cab-catalog-layout,
+.cdb-catalog-layout {
+	gap: 3.25rem;
+}
+
+.cab-catalog-sidebar,
+.cdb-catalog-sidebar {
+	margin-top: -0.85rem;
+}
+
+/* ---------- Sidebar: bloques (filtro de categorías, destacados) ---------- */
+
+.cab-sidebar-block,
+.cdb-sidebar-block {
+	border-radius: var(--pz-radius);
+	box-shadow: 0 0 0 1px rgba(26, 26, 26, 0.1), 0 6px 16px rgba(26, 26, 26, 0.05);
+	border-top: 4px solid var(--pz-gold);
+}
+
+.cab-sidebar-title,
+.cdb-sidebar-title {
+	font-family: var(--pz-font);
+	font-weight: 800;
+	color: var(--pz-ink);
+}
+
+.cab-cat-list-link:hover,
+.cab-cat-list-link.active,
+.cdb-cat-list-link:hover,
+.cdb-cat-list-link.active {
+	color: var(--pz-gold-dark);
+	font-weight: 600;
+}
+
+.cab-cat-list-link.active .cab-cat-list-count,
+.cdb-cat-list-link.active .cdb-cat-list-count {
+	color: #fff !important;
+	background: var(--pz-gold) !important;
+}
+
+.cab-cat-list-clear:hover,
+.cdb-cat-list-clear:hover {
+	color: var(--pz-gold-dark);
+}
+
+.cab-featured-item:hover .cab-featured-name,
+.cdb-featured-item:hover .cdb-featured-name {
+	color: var(--pz-gold-dark);
+}
+
+/* ---------- Ficha de producto ---------- */
+
+.catalogo-api-bridge-detail-title,
+.catalogo-dist-bridge-detail-title {
+	font-family: var(--pz-font);
+	font-weight: 800;
+	color: var(--pz-ink);
+}
+
+.catalogo-api-bridge-detail-brand,
+.catalogo-dist-bridge-detail-brand {
+	color: var(--pz-gold-dark);
+	font-weight: 700;
+}
+
+.cab-badge-disponible,
+.cdb-badge-disponible {
+	color: #33473c !important;
+	background: rgba(76, 107, 91, 0.14) !important;
+	border-color: rgba(76, 107, 91, 0.4) !important;
+}
+
+.cab-back-btn,
+.cdb-back-btn {
+	font-family: var(--pz-font);
+	font-weight: 700;
+	color: var(--pz-ink);
+	transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cab-back-btn:hover,
+.cdb-back-btn:hover {
+	background: var(--pz-gold) !important;
+	border-color: var(--pz-gold) !important;
+	color: #fff !important;
+	box-shadow: 0 6px 14px rgba(173, 138, 63, 0.3);
+}
+
+.cab-main-img,
+.cdb-main-img {
+	border-top: 4px solid var(--pz-gold);
+	border-radius: var(--pz-radius);
+}
+
+.cab-thumb.active,
+.cab-thumb:hover,
+.cdb-thumb.active,
+.cdb-thumb:hover {
+	border-color: var(--pz-gold);
+}
+
+.cab-thumb.active,
+.cdb-thumb.active {
+	box-shadow: 0 0 0 2px rgba(173, 138, 63, 0.18);
+}
+
+.cab-gallery-nav,
+.cdb-gallery-nav {
+	width: 3rem;
+	height: 3rem;
+	font-size: 2rem;
+	background: #fff;
+	box-shadow: 0 0 0 1px rgba(26, 26, 26, 0.2), 0 2px 8px rgba(26, 26, 26, 0.15);
+	color: var(--pz-ink);
+}
+
+.cab-gallery-nav:hover,
+.cdb-gallery-nav:hover {
+	color: var(--pz-gold-dark) !important;
+	box-shadow: 0 0 0 1px var(--pz-gold), 0 4px 10px rgba(26, 26, 26, 0.2);
+}
+
+.cab-section-title,
+.cdb-section-title,
+.cab-sizeguide-block h3,
+.cdb-sizeguide-block h3,
+.cab-faq h2,
+.cdb-faq h2 {
+	font-family: var(--pz-font);
+	font-weight: 800;
+	color: var(--pz-ink);
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+}
+
+.cab-pill.active,
+.cdb-pill.active {
+	border-color: var(--pz-gold) !important;
+	background: var(--pz-gold) !important;
+	color: #fff !important;
+	box-shadow: 0 6px 14px rgba(173, 138, 63, 0.3);
+}
+
+.cab-pill:hover,
+.cdb-pill:hover {
+	border-color: var(--pz-gold);
+}
+
+/* Los swatches de color deben verse redondos (círculo completo) sin
+   importar qué otro estilo del tema los esté pisando. */
+.cab-swatch,
+.cdb-swatch,
+.cdb-card-swatch {
+	border-radius: 50% !important;
+}
+
+.cab-swatch:hover,
+.cdb-swatch:hover {
+	box-shadow: 0 0 0 1px var(--pz-gold-dark);
+}
+
+.cab-swatch.active,
+.cdb-swatch.active {
+	box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--pz-gold);
+}
+
+/* ---------- Guía de tallas (desplegable bajo el selector de Talla) ---------- */
+
+.cab-sizeguide,
+.cdb-sizeguide {
+	margin-top: 0.75rem;
+}
+
+.cab-sizeguide-toggle,
+.cdb-sizeguide-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	list-style: none;
+	cursor: pointer;
+	user-select: none;
+	font-family: var(--pz-font);
+	font-weight: 700;
+	font-size: 0.85rem;
+	color: #fff !important;
+	background: var(--pz-gold) !important;
+	border: none;
+	border-radius: 999px;
+	padding: 0.55rem 1.1rem;
+	box-shadow: 0 6px 14px rgba(173, 138, 63, 0.3);
+	transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cab-sizeguide-toggle::-webkit-details-marker,
+.cdb-sizeguide-toggle::-webkit-details-marker {
+	display: none;
+}
+
+.cab-sizeguide-toggle::after,
+.cdb-sizeguide-toggle::after {
+	content: '\25BE'; /* ▾ */
+	transition: transform 0.2s ease;
+}
+
+.cab-sizeguide[open] .cab-sizeguide-toggle::after,
+.cdb-sizeguide[open] .cdb-sizeguide-toggle::after {
+	transform: rotate(180deg);
+}
+
+.cab-sizeguide-toggle:hover,
+.cdb-sizeguide-toggle:hover {
+	background: var(--pz-gold-dark) !important;
+	box-shadow: 0 8px 18px rgba(140, 109, 46, 0.32);
+}
+
+.cab-sizeguide-panel,
+.cdb-sizeguide-panel {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	margin-top: 1rem;
+	padding: 1.1rem;
+	background: var(--pz-gold-light);
+	border-radius: var(--pz-radius);
+	box-shadow: 0 0 0 1px rgba(173, 138, 63, 0.25);
+}
+
+.cab-sizeguide-block h3,
+.cdb-sizeguide-block h3 {
+	font-size: 0.8rem;
+	margin: 0 0 0.6rem;
+}
+
+.cab-sizeguide-block h3 span,
+.cdb-sizeguide-block h3 span {
+	font-weight: 400;
+	text-transform: none;
+	color: #6b7280;
+	letter-spacing: normal;
+}
+
+.cab-chip,
+.cdb-chip {
+	background: rgba(173, 138, 63, 0.14) !important;
+	color: var(--pz-gold-dark) !important;
+	font-weight: 700;
+}
+
+.cab-features li,
+.cdb-features li {
+	color: var(--pz-sage);
+}
+
+.cab-table-scroll thead th,
+.cdb-table-scroll thead th {
+	background: var(--pz-gold-dark) !important;
+	color: #fff !important;
+}
+
+.cab-table-scroll thead th:first-child,
+.cdb-table-scroll thead th:first-child {
+	background: var(--pz-ink) !important;
+	color: #fff !important;
+}
+
+.cab-faq-item,
+.cdb-faq-item {
+	border-radius: var(--pz-radius-sm);
+	border-left: 4px solid var(--pz-gold);
+	box-shadow: 0 1px 2px rgba(26, 26, 26, 0.05), 0 4px 10px rgba(26, 26, 26, 0.05);
+}
+
+.cab-faq-q,
+.cdb-faq-q {
+	font-family: var(--pz-font);
+	font-weight: 700;
+	color: var(--pz-ink);
+}
+
+.cab-related h2,
+.cdb-related h2 {
+	font-family: var(--pz-font);
+	font-weight: 800;
+	color: var(--pz-ink);
+	text-transform: uppercase;
+}

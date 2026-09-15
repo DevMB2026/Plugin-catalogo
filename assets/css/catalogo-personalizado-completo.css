@@ -1,0 +1,493 @@
+/* ============================================================
+   Catálogo Uniformes Monterrey (Prezenza) — CSS personalizado
+
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+	--pz-gold: #ad8a3f;
+	--pz-gold-dark: #8c6d2e;
+	--pz-gold-light: #f4ead0;
+	--pz-ink: #1a1a1a;
+	--pz-sage: #4c6b5b;
+	--pz-radius: 10px;
+	--pz-radius-sm: 8px;
+	--pz-font: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.catalogo-api-bridge-grid-wrap,
+.catalogo-dist-bridge-grid-wrap,
+.catalogo-api-bridge-detail-wrap {
+	font-family: var(--pz-font);
+}
+
+/* ---------- Categorías: botones grandes ---------- */
+
+.cab-cats-title,
+.cdb-cats-title {
+	font-family: var(--pz-font);
+	font-weight: 800;
+	text-transform: uppercase;
+	letter-spacing: 0.16em;
+	color: var(--pz-ink);
+	display: flex;
+	align-items: center;
+	gap: 1.1rem;
+	padding-bottom: 0;
+}
+
+/* Línea dorada a cada lado del título, igual que "NUESTROS SERVICIOS"
+   en el home — mismo lenguaje visual, ahora también en el catálogo. */
+.cab-cats-title::before,
+.cab-cats-title::after,
+.cdb-cats-title::before,
+.cdb-cats-title::after {
+	content: '';
+	flex: 1 1 auto;
+	height: 1px;
+	background: linear-gradient(to right, transparent, var(--pz-gold));
+}
+
+.cab-cats-title::after,
+.cdb-cats-title::after {
+	background: linear-gradient(to left, transparent, var(--pz-gold));
+}
+
+.cab-cat-btn-img,
+.cdb-cat-btn-img {
+	box-shadow: 0 0 0 1px rgba(26, 26, 26, 0.1), 0 4px 10px rgba(26, 26, 26, 0.08);
+	transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.cab-cat-btn:hover .cab-cat-btn-img,
+.cab-cat-btn.active .cab-cat-btn-img,
+.cdb-cat-btn:hover .cdb-cat-btn-img,
+.cdb-cat-btn.active .cdb-cat-btn-img {
+	box-shadow: 0 0 0 3px var(--pz-gold), 0 8px 16px rgba(173, 138, 63, 0.28);
+	transform: translateY(-3px);
+}
+
+.cab-cat-btn-label,
+.cdb-cat-btn-label {
+	font-family: var(--pz-font);
+	font-weight: 700;
+	color: var(--pz-ink);
+}
+
+.cab-cat-btn.active .cab-cat-btn-label,
+.cdb-cat-btn.active .cdb-cat-btn-label {
+	color: var(--pz-gold-dark);
+}
+
+/* ---------- Tarjetas de producto ---------- */
+/* Radio contenido (no 0, no exagerado) + borde fino siempre visible,
+   para que cada tarjeta se lea como una caja bien delimitada sin
+   verse como un botón redondeado tipo app infantil. */
+
+.catalogo-api-bridge-card,
+.catalogo-dist-bridge-card {
+	border-radius: var(--pz-radius);
+	border: 1px solid rgba(26, 26, 26, 0.18);
+	box-shadow: 0 1px 2px rgba(26, 26, 26, 0.06), 0 6px 16px rgba(26, 26, 26, 0.06);
+	background: #fff;
+	transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.catalogo-api-bridge-card:hover,
+.catalogo-dist-bridge-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 10px 24px rgba(140, 109, 46, 0.2);
+	border-color: var(--pz-gold);
+}
+
+.catalogo-api-bridge-card-img,
+.catalogo-dist-bridge-card-img {
+	background: #faf8f3;
+	border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+}
+
+.catalogo-api-bridge-card-body,
+.catalogo-dist-bridge-card-body {
+	border-top: none;
+}
+
+.catalogo-api-bridge-card-brand,
+.catalogo-dist-bridge-card-brand {
+	font-family: var(--pz-font);
+	font-weight: 700;
+	color: var(--pz-gold-dark);
+}
+
+.catalogo-api-bridge-card-title,
+.catalogo-dist-bridge-card-title {
+	font-family: var(--pz-font);
+	font-weight: 600;
+	color: var(--pz-ink);
+}
+
+.catalogo-api-bridge-card-categoria,
+.catalogo-dist-bridge-card-categoria {
+	display: inline-block !important;
+	font-weight: 600;
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--pz-gold-dark) !important;
+	background: transparent !important;
+	border: 1px solid rgba(173, 138, 63, 0.45);
+	border-radius: 999px;
+	padding: 0.15rem 0.65rem;
+	margin-top: 0.4rem;
+}
+
+/* ---------- Layout: espaciado general ---------- */
+/* Más aire a los lados para que la cuadrícula no quede pegada al borde
+   de la página, más separación entre la cuadrícula y el aside de
+   filtros, y el aside un poco más arriba: su título interno quedaba
+   más abajo que las fotos de producto por el padding propio del
+   bloque, así que se sube un poco para emparejar la altura visual. */
+
+.catalogo-api-bridge-grid-wrap,
+.catalogo-dist-bridge-grid-wrap {
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+	padding-top: clamp(1.5rem, 4vw, 3rem);
+	box-sizing: border-box;
+}
+
+/* ---------- Ficha de producto ---------- */
+
+.catalogo-api-bridge-detail-title,
+.catalogo-dist-bridge-detail-title {
+	font-family: var(--pz-font);
+	font-weight: 800;
+	color: var(--pz-ink);
+}
+
+.catalogo-api-bridge-detail-brand,
+.catalogo-dist-bridge-detail-brand {
+	color: var(--pz-gold-dark);
+	font-weight: 700;
+}
+
+.cab-badge-disponible,
+.cdb-badge-disponible {
+	color: #33473c !important;
+	background: rgba(76, 107, 91, 0.14) !important;
+	border-color: rgba(76, 107, 91, 0.4) !important;
+}
+
+.cab-back-btn,
+.cdb-back-btn {
+	font-family: var(--pz-font);
+	font-weight: 700;
+	color: var(--pz-ink);
+	transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cab-back-btn:hover,
+.cdb-back-btn:hover {
+	background: var(--pz-gold) !important;
+	border-color: var(--pz-gold) !important;
+	color: #fff !important;
+	box-shadow: 0 6px 14px rgba(173, 138, 63, 0.3);
+}
+
+.cab-main-img,
+.cdb-main-img {
+	border-top: 4px solid var(--pz-gold);
+	border-radius: var(--pz-radius);
+}
+
+.cab-thumb.active,
+.cab-thumb:hover,
+.cdb-thumb.active,
+.cdb-thumb:hover {
+	border-color: var(--pz-gold);
+}
+
+.cab-thumb.active,
+.cdb-thumb.active {
+	box-shadow: 0 0 0 2px rgba(173, 138, 63, 0.18);
+}
+
+/* Miniaturas más grandes — el tamaño del plugin por defecto se queda chico
+   para una vitrina de ropa. Puesto aquí (no solo en el archivo del plugin)
+   para que se aplique de inmediato al guardar, sin depender de subir una
+   versión nueva del plugin al hosting. */
+.cab-thumb,
+.cdb-thumb {
+	width: 6.5rem !important;
+	height: 6.5rem !important;
+}
+
+.cab-thumbs,
+.cdb-thumbs {
+	gap: 0.85rem !important;
+}
+
+/* Botones de flecha de la galería: algunos temas traen su propio estilo
+   de <button> (padding, display, position) con más especificidad que la
+   regla del plugin — sin !important aquí, el tema les gana y las flechas
+   colapsan a un tamaño chico dentro del flujo normal en vez de flotar
+   circulares a los lados de la foto. Se fuerza cada propiedad de
+   posición/tamaño para que esto no dependa del tema. */
+.cab-gallery-main,
+.cdb-gallery-main {
+	position: relative !important;
+}
+
+.cab-gallery-nav,
+.cdb-gallery-nav {
+	position: absolute !important;
+	top: 50% !important;
+	transform: translateY(-50%) !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	width: 3rem !important;
+	height: 3rem !important;
+	min-width: 3rem !important;
+	min-height: 3rem !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	font-size: 2rem !important;
+	line-height: 1 !important;
+	border: none !important;
+	border-radius: 999px !important;
+	background: var(--pz-gold) !important;
+	box-shadow: 0 4px 10px rgba(173, 138, 63, 0.35) !important;
+	color: #fff !important;
+	z-index: 5 !important;
+}
+
+/* Fuera del marco de la foto (no encima), para no taparle los brazos al
+   modelo — las fotos del catálogo suelen ir a sangre hasta el borde. */
+.cab-gallery-nav-prev,
+.cdb-gallery-nav-prev {
+	left: -1rem !important;
+	right: auto !important;
+}
+
+.cab-gallery-nav-next,
+.cdb-gallery-nav-next {
+	right: -1rem !important;
+	left: auto !important;
+}
+
+.cab-gallery-nav:hover,
+.cdb-gallery-nav:hover {
+	background: var(--pz-gold-dark) !important;
+	color: #fff !important;
+	box-shadow: 0 6px 14px rgba(140, 109, 46, 0.45) !important;
+}
+
+.cab-section-title,
+.cdb-section-title,
+.cab-sizeguide-block h3,
+.cdb-sizeguide-block h3,
+.cab-faq h2,
+.cdb-faq h2 {
+	font-family: var(--pz-font);
+	font-weight: 800;
+	color: var(--pz-ink);
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+}
+
+.cab-pill.active,
+.cdb-pill.active {
+	border-color: var(--pz-gold) !important;
+	background: var(--pz-gold) !important;
+	color: #fff !important;
+	box-shadow: 0 6px 14px rgba(173, 138, 63, 0.3);
+}
+
+.cab-pill:hover,
+.cdb-pill:hover {
+	border-color: var(--pz-gold);
+}
+
+.cab-swatch,
+.cdb-swatch,
+.cdb-card-swatch {
+	border-radius: 50% !important;
+}
+
+.cab-swatch:hover,
+.cdb-swatch:hover {
+	box-shadow: 0 0 0 1px var(--pz-gold-dark);
+}
+
+.cab-swatch.active,
+.cdb-swatch.active {
+	box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--pz-gold);
+}
+
+.cab-sizeguide,
+.cdb-sizeguide {
+	margin-top: 0.75rem;
+}
+
+.cab-sizeguide-toggle,
+.cdb-sizeguide-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	list-style: none;
+	cursor: pointer;
+	user-select: none;
+	font-family: var(--pz-font);
+	font-weight: 700;
+	font-size: 0.85rem;
+	color: #fff !important;
+	background: var(--pz-gold) !important;
+	border: none;
+	border-radius: 999px;
+	padding: 0.55rem 1.1rem;
+	box-shadow: 0 6px 14px rgba(173, 138, 63, 0.3);
+	transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cab-sizeguide-toggle::-webkit-details-marker,
+.cdb-sizeguide-toggle::-webkit-details-marker {
+	display: none;
+}
+
+.cab-sizeguide-toggle::after,
+.cdb-sizeguide-toggle::after {
+	content: '\25BE';
+	transition: transform 0.2s ease;
+}
+
+.cab-sizeguide[open] .cab-sizeguide-toggle::after,
+.cdb-sizeguide[open] .cdb-sizeguide-toggle::after {
+	transform: rotate(180deg);
+}
+
+.cab-sizeguide-toggle:hover,
+.cdb-sizeguide-toggle:hover {
+	background: var(--pz-gold-dark) !important;
+	box-shadow: 0 8px 18px rgba(140, 109, 46, 0.32);
+}
+
+.cab-sizeguide-panel,
+.cdb-sizeguide-panel {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	margin-top: 1rem;
+	padding: 1.1rem;
+	background: var(--pz-gold-light);
+	border-radius: var(--pz-radius);
+	box-shadow: 0 0 0 1px rgba(173, 138, 63, 0.25);
+}
+
+.cab-sizeguide-block h3,
+.cdb-sizeguide-block h3 {
+	font-size: 0.8rem;
+	margin: 0 0 0.6rem;
+}
+
+.cab-sizeguide-block h3 span,
+.cdb-sizeguide-block h3 span {
+	font-weight: 400;
+	text-transform: none;
+	color: #6b7280;
+	letter-spacing: normal;
+}
+
+.cab-chip,
+.cdb-chip {
+	background: rgba(173, 138, 63, 0.14) !important;
+	color: var(--pz-gold-dark) !important;
+	font-weight: 700;
+}
+
+.cab-features li,
+.cdb-features li {
+	color: var(--pz-sage);
+}
+
+.cab-attrs,
+.cdb-attrs {
+	box-shadow: 0 0 0 1px rgba(173, 138, 63, 0.25);
+	border-radius: var(--pz-radius-sm);
+}
+
+.cab-attr-row,
+.cdb-attr-row {
+	padding: 0.75rem 1.1rem;
+}
+
+.cab-attr-row.alt,
+.cdb-attr-row.alt {
+	background: var(--pz-gold-light);
+}
+
+.cab-attr-row dt,
+.cdb-attr-row dt {
+	font-family: var(--pz-font);
+	font-weight: 700;
+	text-transform: uppercase;
+	font-size: 0.72rem;
+	letter-spacing: 0.04em;
+	color: var(--pz-gold-dark);
+}
+
+.cab-attr-row dd,
+.cdb-attr-row dd {
+	font-family: var(--pz-font);
+	font-weight: 600;
+	color: var(--pz-ink);
+}
+
+.cab-composicion-text,
+.cdb-composicion-text {
+	font-family: var(--pz-font);
+	padding: 0.9rem 1.1rem;
+	border-left: 3px solid var(--pz-gold);
+	background: var(--pz-gold-light);
+	border-radius: 0 var(--pz-radius-sm) var(--pz-radius-sm) 0;
+	color: var(--pz-ink);
+}
+
+.cab-sku-line,
+.cdb-sku-line {
+	border-top: 1px solid rgba(173, 138, 63, 0.25);
+}
+
+.cab-table-scroll thead th,
+.cdb-table-scroll thead th {
+	background: var(--pz-gold-dark) !important;
+	color: #fff !important;
+}
+
+.cab-table-scroll thead th:first-child,
+.cdb-table-scroll thead th:first-child {
+	background: var(--pz-ink) !important;
+	color: #fff !important;
+}
+
+.cab-faq-item,
+.cdb-faq-item {
+	border-radius: var(--pz-radius-sm);
+	border-left: 4px solid var(--pz-gold);
+	box-shadow: 0 1px 2px rgba(26, 26, 26, 0.05), 0 4px 10px rgba(26, 26, 26, 0.05);
+}
+
+.cab-faq-q,
+.cdb-faq-q {
+	font-family: var(--pz-font);
+	font-weight: 700;
+	color: var(--pz-ink);
+}
+
+.cab-related h2,
+.cdb-related h2 {
+	font-family: var(--pz-font);
+	font-weight: 800;
+	color: var(--pz-ink);
+	text-transform: uppercase;
+}

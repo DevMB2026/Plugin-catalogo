@@ -1,0 +1,950 @@
+.catalogo-api-bridge-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 1.25rem;
+}
+
+.catalogo-api-bridge-card {
+	display: flex;
+	flex-direction: column;
+	text-decoration: none;
+	color: inherit;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+	background: #fff;
+}
+
+.catalogo-api-bridge-card-img {
+	aspect-ratio: 1 / 1;
+	background: #f3f3f3;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+
+.catalogo-api-bridge-card-img img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	box-sizing: border-box;
+	padding: 0.5rem;
+}
+
+.catalogo-api-bridge-no-img {
+	color: #999;
+	font-size: 0.85rem;
+}
+
+.catalogo-api-bridge-card-body {
+	padding: 0.75rem;
+}
+
+.catalogo-api-bridge-card-brand {
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: #888;
+	margin: 0 0 0.25rem;
+}
+
+.catalogo-api-bridge-card-title {
+	font-size: 0.95rem;
+	margin: 0;
+}
+
+.catalogo-api-bridge-card-categoria {
+	font-size: 0.8rem;
+	color: #9ca3af;
+	margin: 0.15rem 0 0;
+	/* Solo se ve en el estilo "lista" — en cuadrícula/compacta el nombre y la
+	   marca ya bastan, mostrar categoría ahí sería ruido. */
+	display: none;
+}
+
+/* ---------- Estilo: lista ---------- */
+/* Filas horizontales de ancho completo, con más info por producto. */
+
+.catalogo-api-bridge-grid--lista {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.catalogo-api-bridge-grid--lista .catalogo-api-bridge-card {
+	flex-direction: row;
+	align-items: center;
+}
+
+.catalogo-api-bridge-grid--lista .catalogo-api-bridge-card-img {
+	width: 6.5rem;
+	min-width: 6.5rem;
+	aspect-ratio: 1 / 1;
+}
+
+.catalogo-api-bridge-grid--lista .catalogo-api-bridge-card-body {
+	padding: 0.75rem 1rem;
+}
+
+.catalogo-api-bridge-grid--lista .catalogo-api-bridge-card-title {
+	font-size: 1.05rem;
+}
+
+.catalogo-api-bridge-grid--lista .catalogo-api-bridge-card-categoria {
+	display: block;
+}
+
+/* ---------- Estilo: compacta ---------- */
+/* Grid más denso — más columnas, tarjetas chicas, solo imagen + nombre. */
+
+.catalogo-api-bridge-grid--compacta {
+	grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+	gap: 0.75rem;
+}
+
+.catalogo-api-bridge-grid--compacta .catalogo-api-bridge-card-body {
+	padding: 0.5rem;
+}
+
+.catalogo-api-bridge-grid--compacta .catalogo-api-bridge-card-brand {
+	display: none;
+}
+
+.catalogo-api-bridge-grid--compacta .catalogo-api-bridge-card-title {
+	font-size: 0.8rem;
+}
+
+.catalogo-api-bridge-empty,
+.catalogo-api-bridge-error {
+	color: #666;
+	padding: 1rem 0;
+}
+
+.catalogo-api-bridge-detail-wrap {
+	max-width: 1100px;
+	width: 100%;
+	margin: 0 auto;
+	padding: 2rem 1rem;
+	box-sizing: border-box;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+	/* Algunos temas (ej. Woodmart) envuelven el contenido de la página en su
+	   propio <main> con display:grid de N columnas (un grid system tipo
+	   Bootstrap), y un hijo sin grid-column explícito solo ocupa 1 columna
+	   por defecto — aquí eso comprimía todo el detalle a ~75px de ancho.
+	   grid-column:1/-1 fuerza a ocupar TODAS las columnas del padre si
+	   resulta ser un grid; no tiene efecto si el padre no lo es. */
+	grid-column: 1 / -1;
+}
+
+.catalogo-api-bridge-breadcrumb {
+	font-size: 0.85rem;
+	color: #9ca3af;
+	margin-bottom: 1.5rem;
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+}
+
+.catalogo-api-bridge-breadcrumb a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.catalogo-api-bridge-breadcrumb a:hover {
+	color: #374151;
+}
+
+.catalogo-api-bridge-breadcrumb > *:last-child {
+	color: #4b5563;
+}
+
+/* Botón "Regresar al catálogo" — primer elemento de la columna de info. */
+.cab-back-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	align-self: flex-start;
+	margin-bottom: 1rem;
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: #4b5563;
+	text-decoration: none;
+	background: #fff;
+	border: 1px solid #e5e7eb;
+	border-radius: 999px;
+	padding: 0.5rem 1rem;
+	transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.cab-back-btn:hover {
+	border-color: #9ca3af;
+	color: #111827;
+}
+
+.catalogo-api-bridge-detail {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 3rem;
+	width: 100%;
+}
+
+/* Sin esto, algunos temas (grids/flex propios del theme envolviendo esta
+   página) hacen que una de las dos columnas se colapse a 0px de ancho: por
+   defecto un hijo de grid no se encoge más allá del tamaño de su contenido
+   (min-width: auto), y en layouts ajenos con poco espacio eso empuja a la
+   otra columna a 0. min-width: 0 fuerza a que sí se repartan 1fr y 1fr. */
+.catalogo-api-bridge-detail-gallery,
+.catalogo-api-bridge-detail-info {
+	min-width: 0;
+}
+
+@media (max-width: 900px) {
+	.catalogo-api-bridge-detail {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* ---------- Galería ---------- */
+
+.cab-gallery-main {
+	position: relative;
+}
+
+.cab-main-img {
+	aspect-ratio: 2 / 3;
+	background: #f9fafb;
+	border-radius: 1rem;
+	overflow: hidden;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+	border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Flechas para pasar de foto sin tener que usar las miniaturas — el JS
+   las oculta solas (display:none) cuando la galería tiene 1 sola foto. */
+.cab-gallery-nav {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 2.5rem;
+	height: 2.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.9);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+	color: #111827;
+	font-size: 1.5rem;
+	line-height: 1;
+	cursor: pointer;
+	transition: background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.cab-gallery-nav:hover {
+	background: #fff;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	color: #4f46e5;
+}
+
+.cab-gallery-nav-prev {
+	left: 0.75rem;
+}
+
+.cab-gallery-nav-next {
+	right: 0.75rem;
+}
+
+.cab-main-img-el {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.cab-main-img .catalogo-api-bridge-no-img {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.cab-thumbs {
+	display: flex;
+	gap: 0.75rem;
+	margin-top: 1rem;
+	flex-wrap: wrap;
+}
+
+/* ---------- Galería: miniaturas a la izquierda ---------- */
+/* Ajuste opcional (Ajustes → Catálogo API): tira vertical de miniaturas a
+   la izquierda, imagen principal a la derecha, en vez de miniaturas abajo. */
+
+.catalogo-api-bridge-detail-gallery--izquierda {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.75rem;
+}
+
+.catalogo-api-bridge-detail-gallery--izquierda .cab-gallery-main {
+	flex: 1;
+	min-width: 0;
+}
+
+.catalogo-api-bridge-detail-gallery--izquierda .cab-thumbs {
+	order: -1;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	margin-top: 0;
+	max-height: 36rem;
+	overflow-y: auto;
+	padding-right: 0.15rem;
+}
+
+.catalogo-api-bridge-detail-gallery--izquierda .cab-thumb {
+	flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+	.catalogo-api-bridge-detail-gallery--izquierda {
+		flex-direction: column;
+	}
+	.catalogo-api-bridge-detail-gallery--izquierda .cab-thumbs {
+		order: 0;
+		flex-direction: row;
+		max-height: none;
+		overflow-y: visible;
+	}
+}
+
+.cab-thumb {
+	width: 5.5rem;
+	height: 5.5rem;
+	border-radius: 0.85rem;
+	overflow: hidden;
+	padding: 0;
+	background: #f9fafb;
+	border: 1px solid #e5e7eb;
+	cursor: pointer;
+	transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.cab-thumb:hover {
+	border-color: #9ca3af;
+}
+
+.cab-thumb.active {
+	border-color: #4f46e5;
+	box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+}
+
+.cab-thumb img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+/* ---------- Info ---------- */
+
+.cab-top-row {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+}
+
+.catalogo-api-bridge-detail-brand {
+	font-size: 0.75rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: #4f46e5;
+	margin: 0;
+}
+
+.cab-badge-disponible {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	font-size: 0.75rem;
+	font-weight: 500;
+	color: #047857;
+	background: #ecfdf5;
+	border: 1px solid #a7f3d0;
+	border-radius: 999px;
+	padding: 0.15rem 0.65rem;
+}
+
+.catalogo-api-bridge-detail-title {
+	font-size: 1.75rem;
+	font-weight: 700;
+	color: #111827;
+	margin: 0.5rem 0 0;
+	line-height: 1.25;
+}
+
+.catalogo-api-bridge-detail-meta {
+	color: #9ca3af;
+	font-size: 0.875rem;
+	margin: 0.4rem 0 0;
+}
+
+.cab-sku-text {
+	font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.cab-whatsapp-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-top: 1rem;
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: #fff;
+	background: #4c7a63;
+	border: none;
+	border-radius: 999px;
+	padding: 0.65rem 1.25rem;
+	text-decoration: none;
+	box-shadow: 0 4px 10px rgba(76, 122, 99, 0.3);
+	transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.cab-whatsapp-btn svg {
+	flex-shrink: 0;
+}
+
+.cab-whatsapp-btn:hover {
+	background: #3d6350;
+	color: #fff;
+	box-shadow: 0 6px 14px rgba(76, 122, 99, 0.4);
+	transform: translateY(-1px);
+}
+
+.catalogo-api-bridge-detail-desc {
+	color: #4b5563;
+	line-height: 1.7;
+	margin: 1.25rem 0 0;
+	padding-left: 1rem;
+	border-left: 2px solid #f3f4f6;
+	text-align: justify;
+}
+
+.cab-section {
+	margin-top: 1.75rem;
+}
+
+.cab-section-head {
+	display: flex;
+	align-items: baseline;
+	gap: 0.5rem;
+	margin-bottom: 0.75rem;
+}
+
+.cab-section-title {
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: #111827;
+	margin: 0 0 0.75rem;
+}
+
+.cab-section-head .cab-section-title {
+	margin: 0;
+}
+
+.cab-section-value {
+	font-size: 0.875rem;
+	color: #6b7280;
+}
+
+.cab-pills {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.6rem;
+}
+
+.cab-pill {
+	min-width: 3rem;
+	padding: 0.5rem 1rem;
+	border-radius: 0.5rem;
+	border: 1px solid #d1d5db;
+	background: #fff;
+	color: #374151;
+	font-size: 0.875rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.cab-pill:hover {
+	border-color: #111827;
+}
+
+.cab-pill.active {
+	border-color: #4f46e5;
+	background: #4f46e5;
+	color: #fff;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.cab-swatch {
+	width: 2.25rem;
+	height: 2.25rem;
+	border-radius: 999px;
+	padding: 0;
+	border: none;
+	box-shadow: 0 0 0 1px #d1d5db;
+	cursor: pointer;
+	flex-shrink: 0;
+	transition: box-shadow 0.15s;
+}
+
+.cab-swatch:hover {
+	box-shadow: 0 0 0 1px #9ca3af;
+}
+
+.cab-swatch.active {
+	box-shadow: 0 0 0 2px #fff, 0 0 0 4px #4f46e5;
+}
+
+.cab-composicion-text {
+	color: #4b5563;
+	font-size: 0.875rem;
+	line-height: 1.7;
+	margin: 0;
+	text-align: justify;
+}
+
+.cab-sku-line {
+	margin-top: 1.75rem;
+	padding-top: 1.25rem;
+	border-top: 1px solid #f3f4f6;
+}
+
+.cab-sku-line span {
+	font-size: 0.75rem;
+	color: #9ca3af;
+	font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.cab-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.cab-chip {
+	background: #eef2ff;
+	color: #4338ca;
+	border-radius: 999px;
+	padding: 0.25rem 0.75rem;
+	font-size: 0.75rem;
+	font-weight: 500;
+}
+
+.cab-features {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.25rem 1.5rem;
+	font-size: 0.875rem;
+	color: #374151;
+}
+
+.cab-features li {
+	color: #10b981;
+}
+
+.cab-attrs {
+	margin: 0;
+	border-radius: 0.75rem;
+	overflow: hidden;
+	box-shadow: 0 0 0 1px #f3f4f6;
+}
+
+.cab-attr-row {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 0.6rem 1rem;
+	background: #fff;
+}
+
+.cab-attr-row.alt {
+	background: #fafafa;
+}
+
+.cab-attr-row dt {
+	color: #6b7280;
+	margin: 0;
+}
+
+.cab-attr-row dd {
+	color: #111827;
+	font-weight: 500;
+	margin: 0;
+	text-align: right;
+}
+
+@media (max-width: 600px) {
+	.cab-features {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* ---------- Tabla de medidas / FAQ ---------- */
+
+.cab-sizechart,
+.cab-faq {
+	margin-top: 3rem;
+}
+
+.cab-sizechart h2,
+.cab-faq h2 {
+	font-size: 1.15rem;
+	font-weight: 600;
+	color: #111827;
+	margin: 0 0 0.75rem;
+}
+
+.cab-sizechart h2 span {
+	font-size: 0.875rem;
+	font-weight: 400;
+	color: #9ca3af;
+}
+
+.cab-table-scroll {
+	overflow-x: auto;
+	border-radius: 0.75rem;
+	box-shadow: 0 0 0 1px #e5e7eb;
+	-webkit-overflow-scrolling: touch;
+}
+
+.cab-table-scroll table {
+	width: 100%;
+	min-width: max-content;
+	border-collapse: separate;
+	border-spacing: 0;
+	font-size: 0.875rem;
+	background: #fff;
+}
+
+.cab-table-scroll th,
+.cab-table-scroll td {
+	padding: 0.65rem 1.1rem;
+	white-space: nowrap;
+}
+
+.cab-table-scroll thead th {
+	background: #f9fafb;
+	text-align: left;
+	font-weight: 600;
+	font-size: 0.75rem;
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+	color: #6b7280;
+	border-bottom: 1px solid #e5e7eb;
+}
+
+.cab-table-scroll tbody td {
+	color: #374151;
+	border-bottom: 1px solid #f3f4f6;
+	font-variant-numeric: tabular-nums;
+}
+
+.cab-table-scroll tbody tr:last-child td {
+	border-bottom: none;
+}
+
+.cab-table-scroll tbody tr:nth-child(even) td {
+	background: #fafafa;
+}
+
+/* La talla queda fija al hacer scroll horizontal (tallas grandes generan
+   muchas columnas) — así nunca se pierde de vista qué fila se está leyendo,
+   sobre todo en móvil. */
+.cab-table-scroll th:first-child,
+.cab-table-scroll td:first-child {
+	position: sticky;
+	left: 0;
+	z-index: 1;
+	box-shadow: 1px 0 0 #e5e7eb;
+}
+
+.cab-table-scroll thead th:first-child {
+	background: #f3f4f6;
+	color: #111827;
+}
+
+.cab-table-scroll tbody td:first-child {
+	background: #fff;
+	font-weight: 700;
+	color: #111827;
+}
+
+.cab-table-scroll tbody tr:nth-child(even) td:first-child {
+	background: #fafafa;
+}
+
+@media (max-width: 480px) {
+	.cab-table-scroll th,
+	.cab-table-scroll td {
+		padding: 0.55rem 0.85rem;
+		font-size: 0.8125rem;
+	}
+}
+
+.cab-faq-item {
+	background: #fff;
+	box-shadow: 0 0 0 1px #f3f4f6;
+	border-radius: 0.75rem;
+	padding: 1rem;
+	margin-bottom: 0.75rem;
+}
+
+.cab-faq-q {
+	font-weight: 500;
+	color: #111827;
+	margin: 0;
+}
+
+.cab-faq-a {
+	font-size: 0.875rem;
+	color: #4b5563;
+	margin: 0.35rem 0 0;
+	text-align: justify;
+}
+
+/* ============================================================
+   Catálogo (listado): categorías (botones grandes) + aside
+   con filtro (categorías + destacados).
+   ============================================================ */
+
+/* ---------- Categorías: botones grandes ---------- */
+
+.cab-cats-section {
+	margin-bottom: 2rem;
+}
+
+.cab-cats-title {
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: #111827;
+	margin: 0 0 1.1rem;
+	text-align: center;
+}
+
+.cab-cats-row {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(110px, 130px));
+	justify-content: center;
+	gap: 1.1rem;
+}
+
+.cab-cat-btn {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.6rem;
+	text-decoration: none;
+	color: inherit;
+}
+
+.cab-cat-btn-img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	border-radius: 999px;
+	overflow: hidden;
+	background: #f9fafb;
+	box-shadow: 0 0 0 1px #f0f0f1;
+	transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.cab-cat-btn-img img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.cab-cat-btn:hover .cab-cat-btn-img,
+.cab-cat-btn.active .cab-cat-btn-img {
+	box-shadow: 0 0 0 2px #4f46e5;
+	transform: translateY(-2px);
+}
+
+.cab-cat-btn-label {
+	font-size: 0.78rem;
+	font-weight: 600;
+	text-align: center;
+	color: #374151;
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+}
+
+.cab-cat-btn.active .cab-cat-btn-label {
+	color: #4f46e5;
+}
+
+/* ---------- Layout: catálogo principal + aside ---------- */
+
+.cab-catalog-layout {
+	display: grid;
+	grid-template-columns: 1fr 280px;
+	gap: 2.5rem;
+	align-items: start;
+}
+
+.cab-catalog-main {
+	min-width: 0;
+}
+
+@media (max-width: 900px) {
+	.cab-catalog-layout {
+		grid-template-columns: 1fr;
+	}
+}
+
+.cab-catalog-sidebar {
+	display: flex;
+	flex-direction: column;
+	gap: 1.75rem;
+}
+
+.cab-sidebar-block {
+	background: #fff;
+	border-radius: 1rem;
+	box-shadow: 0 0 0 1px #f0f0f1;
+	padding: 1.25rem;
+}
+
+.cab-sidebar-title {
+	font-size: 0.78rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: #111827;
+	margin: 0 0 0.9rem;
+}
+
+.cab-cat-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.cab-cat-list-link {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	padding: 0.45rem 0;
+	text-decoration: none;
+	color: #4b5563;
+	font-size: 0.875rem;
+	border-bottom: 1px solid #f3f4f6;
+	transition: color 0.15s ease;
+}
+
+.cab-cat-list li:last-child .cab-cat-list-link {
+	border-bottom: none;
+}
+
+.cab-cat-list-link:hover,
+.cab-cat-list-link.active {
+	color: #4f46e5;
+}
+
+.cab-cat-list-count {
+	font-size: 0.72rem;
+	color: #9ca3af;
+	background: #f3f4f6;
+	border-radius: 999px;
+	padding: 0.05rem 0.5rem;
+}
+
+.cab-cat-list-link.active .cab-cat-list-count {
+	color: #4f46e5;
+	background: #eef2ff;
+}
+
+.cab-cat-list-clear {
+	display: inline-block;
+	font-size: 0.78rem;
+	color: #9ca3af;
+	text-decoration: underline;
+	margin-bottom: 0.6rem;
+}
+
+.cab-cat-list-clear:hover {
+	color: #4f46e5;
+}
+
+.cab-featured-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.9rem;
+}
+
+.cab-featured-item {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	text-decoration: none;
+	color: inherit;
+}
+
+.cab-featured-img {
+	width: 3rem;
+	height: 3rem;
+	min-width: 3rem;
+	border-radius: 0.6rem;
+	overflow: hidden;
+	background: #f9fafb;
+	box-shadow: 0 0 0 1px #f0f0f1;
+}
+
+.cab-featured-img img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.cab-featured-name {
+	font-size: 0.85rem;
+	font-weight: 500;
+	color: #374151;
+	line-height: 1.3;
+}
+
+.cab-featured-item:hover .cab-featured-name {
+	color: #4f46e5;
+}
+
+/* ---------- Productos relacionados (ficha de producto) ---------- */
+
+.cab-related {
+	margin-top: 3rem;
+}
+
+.cab-related h2 {
+	font-size: 1.15rem;
+	font-weight: 600;
+	color: #111827;
+	margin: 0 0 1.25rem;
+}
+
+.cab-related-grid {
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}

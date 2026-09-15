@@ -1,0 +1,8 @@
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Prototipos y volcados de prueba — no forman parte del plugin
+chamarra_tmp.json
+hero-demo.html
