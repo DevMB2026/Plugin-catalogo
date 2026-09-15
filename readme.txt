@@ -4,7 +4,7 @@ Tags: catálogo, api, productos
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.15.0
+Stable tag: 1.16.0
 License: proprietary
 
 Consume el catálogo central de productos (API propia) para mostrarlo en WordPress, sin precios y sin depender de una llamada a la API en cada visita.
@@ -24,6 +24,9 @@ Fase 5A (esta versión): solo catálogo público, sin precios y sin autenticaci�
 5. Usa `[catalogo_hero]` para el hero animado con los productos destacados. Admite `titulo`, `subtitulo`, `boton`, `enlace` y `limite` — ninguno obligatorio.
 
 == Changelog ==
+
+= 1.16.0 =
+* Actualizaciones automáticas: el plugin ya avisa solo cuando hay una versión nueva (Escritorio → Plugins, igual que cualquier plugin de la tienda oficial), leyendo los tags publicados en https://github.com/DevMB2026/Plugin-catalogo. No requiere acción del sitio que lo tiene instalado — para publicar una versión nueva basta con subir el número de Version, hacer commit y empujar un tag `vX.Y.Z`.
 
 = 1.15.0 =
 * Nuevo shortcode `[catalogo_hero]`: hero animado con los productos destacados (mismos que ya alimentaba "Productos destacados" del aside) — el fondo y la tarjeta cambian de color según el acento del producto que esté al frente (primer valor del eje "Color"), la imagen central crece desde una miniatura de "siguiente producto" y la anterior sale volando hacia arriba, con flechas y avance automático. Admite `titulo`, `subtitulo`, `boton`, `enlace` y `limite` (ninguno obligatorio). Las imágenes se dejan como marcador de posición a propósito — se conecta un `<img>` real cuando el catálogo tenga fotos listas para este bloque. Nuevo `Catalogo_API_Bridge_Colors::accent_for_product()`.
