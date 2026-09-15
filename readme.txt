@@ -4,7 +4,7 @@ Tags: catálogo, api, productos
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.16.0
+Stable tag: 1.16.1
 License: proprietary
 
 Consume el catálogo central de productos (API propia) para mostrarlo en WordPress, sin precios y sin depender de una llamada a la API en cada visita.
@@ -24,6 +24,9 @@ Fase 5A (esta versión): solo catálogo público, sin precios y sin autenticaci�
 5. Usa `[catalogo_hero]` para el hero animado con los productos destacados. Admite `titulo`, `subtitulo`, `boton`, `enlace` y `limite` — ninguno obligatorio.
 
 == Changelog ==
+
+= 1.16.1 =
+* Prueba del sistema de actualizaciones automáticas (Plugin Update Checker) — sin cambios funcionales.
 
 = 1.16.0 =
 * Actualizaciones automáticas: el plugin ya avisa solo cuando hay una versión nueva (Escritorio → Plugins, igual que cualquier plugin de la tienda oficial), leyendo los tags publicados en https://github.com/DevMB2026/Plugin-catalogo. No requiere acción del sitio que lo tiene instalado — para publicar una versión nueva basta con subir el número de Version, hacer commit y empujar un tag `vX.Y.Z`.
