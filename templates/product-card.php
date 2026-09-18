@@ -15,6 +15,7 @@ $categoria = Catalogo_API_Bridge_Store::display_category_nombre(
 	isset( $product['category']['nombre'] ) ? $product['category']['nombre'] : ''
 );
 $slug      = isset( $product['slug'] ) ? $product['slug'] : '';
+$badges    = ( ! empty( $product['badges'] ) && is_array( $product['badges'] ) ) ? $product['badges'] : array();
 
 $imagen = '';
 if ( ! empty( $product['media'] ) && is_array( $product['media'] ) ) {
@@ -31,6 +32,13 @@ if ( ! empty( $product['media'] ) && is_array( $product['media'] ) ) {
 ?>
 <a class="catalogo-api-bridge-card" href="<?php echo esc_url( Catalogo_API_Bridge_Rewrite::product_url( $slug ) ); ?>">
 	<div class="catalogo-api-bridge-card-img">
+		<?php if ( $badges ) : ?>
+			<div class="cab-card-tags">
+				<?php foreach ( $badges as $b ) : ?>
+					<span class="cab-card-tag"><?php echo esc_html( $b['nombre'] ?? '' ); ?></span>
+				<?php endforeach; ?>
+			</div>
+		<?php endif; ?>
 		<?php if ( $imagen ) : ?>
 			<img src="<?php echo esc_url( $imagen ); ?>" alt="<?php echo esc_attr( $nombre ); ?>" loading="lazy" />
 		<?php else : ?>

@@ -16,12 +16,41 @@
 }
 
 .catalogo-api-bridge-card-img {
+	position: relative;
 	aspect-ratio: 1 / 1;
 	background: #f3f3f3;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	overflow: hidden;
+}
+
+/* ---------- Etiquetas (New Arrival, Últimas piezas…) ---------- */
+/* Esquina superior DERECHA a propósito: en catalogo-distribuidor-bridge la
+   izquierda ya la usa el badge de "Stock disponible" — misma esquina en
+   los dos plugins para que el patrón sea consistente entre sitios. */
+
+.cab-card-tags {
+	position: absolute;
+	top: 0.6rem;
+	right: 0.6rem;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 0.3rem;
+}
+
+.cab-card-tag {
+	background: #dc2626;
+	color: #fff;
+	font-size: 0.65rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	padding: 0.2rem 0.55rem;
+	border-radius: 4px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 .catalogo-api-bridge-card-img img {
@@ -375,6 +404,19 @@
 	border: 1px solid #a7f3d0;
 	border-radius: 999px;
 	padding: 0.15rem 0.65rem;
+}
+
+.cab-tag {
+	display: inline-flex;
+	align-items: center;
+	font-size: 0.7rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	color: #fff;
+	background: #dc2626;
+	border-radius: 999px;
+	padding: 0.2rem 0.7rem;
 }
 
 .catalogo-api-bridge-detail-title {
