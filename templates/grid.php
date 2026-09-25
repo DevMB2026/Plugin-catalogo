@@ -61,7 +61,7 @@ $mostrar_filtro_categoria = empty( $categoria_fija_activa ) && count( $categoria
 					<div class="cab-sidebar-block">
 						<h3 class="cab-sidebar-title">Categorías del producto</h3>
 						<?php if ( $categoria_actual ) : ?>
-							<a class="cab-cat-list-clear" href="<?php echo esc_url( remove_query_arg( 'cab_categoria' ) ); ?>">Quitar filtro</a>
+							<a class="cab-cat-list-clear" href="<?php echo esc_url( ! empty( $categoria_inicial ) ? add_query_arg( 'cab_categoria', 'todas' ) : remove_query_arg( 'cab_categoria' ) ); ?>">Quitar filtro</a>
 						<?php endif; ?>
 						<ul class="cab-cat-list">
 							<?php foreach ( $categorias as $cat ) : ?>

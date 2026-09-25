@@ -4,7 +4,7 @@ Tags: catálogo, api, productos
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.16.1
+Stable tag: 1.17.0
 License: proprietary
 
 Consume el catálogo central de productos (API propia) para mostrarlo en WordPress, sin precios y sin depender de una llamada a la API en cada visita.
@@ -19,11 +19,14 @@ Fase 5A (esta versión): solo catálogo público, sin precios y sin autenticaci�
 
 1. Activa el plugin.
 2. Ve a Ajustes → Catálogo API y confirma/edita la URL base de la API.
-3. Usa el shortcode `[catalogo_grid]` en cualquier página o entrada para mostrar el catálogo. Admite los atributos `marca`, `categoria`, `catalogo`, `limite` y `estilo` — ninguno obligatorio.
+3. Usa el shortcode `[catalogo_grid]` en cualquier página o entrada para mostrar el catálogo. Admite los atributos `marca`, `categoria`, `categoria_inicial`, `catalogo`, `limite` y `estilo` — ninguno obligatorio. `categoria` fija la categoría (el visitante no puede cambiarla); `categoria_inicial` solo es la que se ve al entrar (ej. `[catalogo_grid categoria_inicial="chamarras"]`).
 4. El detalle de cada producto se sirve automáticamente en `/catalogo/producto/{slug}/`.
 5. Usa `[catalogo_hero]` para el hero animado con los productos destacados. Admite `titulo`, `subtitulo`, `boton`, `enlace` y `limite` — ninguno obligatorio.
 
 == Changelog ==
+
+= 1.17.0 =
+* Nuevo atributo `categoria_inicial` en `[catalogo_grid]`: la categoría que se ve al entrar al catálogo (ej. `categoria_inicial="chamarras"`), sin fijarla — el visitante puede cambiar a otra, y "Quitar filtro" lleva a `?cab_categoria=todas` para ver todo.
 
 = 1.16.1 =
 * Prueba del sistema de actualizaciones automáticas (Plugin Update Checker) — sin cambios funcionales.

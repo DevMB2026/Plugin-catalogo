@@ -28,6 +28,7 @@ class Catalogo_API_Bridge_Shortcodes {
 			array(
 				'marca'     => '',
 				'categoria' => '',
+				'categoria_inicial' => '',
 				'catalogo'  => '',
 				'limite'    => 12,
 				'estilo'    => 'cuadricula',
@@ -41,10 +42,23 @@ class Catalogo_API_Bridge_Shortcodes {
 		// botones/aside sin salir de la página (?cab_categoria=slug) — un
 		// simple recargado con GET, sin JS, igual de espíritu que el resto del
 		// plugin (server-rendered).
-		$categoria_fija   = sanitize_title( $atts['categoria'] );
-		$categoria_actual = $categoria_fija;
-		if ( empty( $categoria_fija ) && ! empty( $_GET['cab_categoria'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$categoria_actual = sanitize_title( wp_unslash( $_GET['cab_categoria'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		//
+		// `categoria_inicial` (ej. "chamarras"): la que se ve AL ENTRAR, sin
+		// fijarla — el visitante puede cambiar a otra, y "Quitar filtro" lleva a
+		// ?cab_categoria=todas para ver todo el catálogo (sin ese valor especial,
+		// quitar el filtro volvería a caer en la categoría inicial).
+		$categoria_fija    = sanitize_title( $atts['categoria'] );
+		$categoria_inicial = sanitize_title( $atts['categoria_inicial'] );
+		$categoria_actual  = $categoria_fija;
+		if ( empty( $categoria_fija ) ) {
+			$pedida = isset( $_GET['cab_categoria'] ) ? sanitize_title( wp_unslash( $_GET['cab_categoria'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( 'todas' === $pedida ) {
+				$categoria_actual = '';
+			} elseif ( '' !== $pedida ) {
+				$categoria_actual = $pedida;
+			} else {
+				$categoria_actual = $categoria_inicial;
+			}
 		}
 
 		$args = array(
