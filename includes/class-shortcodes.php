@@ -29,6 +29,7 @@ class Catalogo_API_Bridge_Shortcodes {
 				'marca'     => '',
 				'categoria' => '',
 				'categoria_inicial' => '',
+				'orden'     => '',
 				'catalogo'  => '',
 				'limite'    => 12,
 				'estilo'    => 'cuadricula',
@@ -66,6 +67,11 @@ class Catalogo_API_Bridge_Shortcodes {
 			'category' => $categoria_actual,
 			'catalogo' => sanitize_title( $atts['catalogo'] ),
 			'limit'    => max( 1, min( 100, (int) $atts['limite'] ) ),
+			// Orden manual (ej. orden="shell, atractive, hydro, reaction"): esos
+			// productos primero y en ese orden, el resto después. Una sola lista
+			// sirve para todas las categorías — cada término solo coincide con
+			// los productos que lo llevan en su slug.
+			'orden'    => Catalogo_API_Bridge_Store::parse_orden( $atts['orden'] ),
 		);
 
 		// Valor desconocido (typo, etc.) cae a "cuadricula" en vez de romper

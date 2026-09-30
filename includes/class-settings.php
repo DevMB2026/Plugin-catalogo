@@ -470,10 +470,17 @@ class Catalogo_API_Bridge_Settings {
 			<?php self::render_sync_status_block(); ?>
 			<p>
 				Usa el shortcode <code>[catalogo_grid]</code> en cualquier página o entrada para mostrar el catálogo.
-				Admite los atributos <code>marca</code>, <code>categoria</code>, <code>catalogo</code>, <code>limite</code> y
-				<code>estilo</code>, por ejemplo: <code>[catalogo_grid marca="prezenza" limite="8" estilo="lista"]</code>.
+				Admite los atributos <code>marca</code>, <code>categoria</code>, <code>categoria_inicial</code>, <code>orden</code>,
+				<code>catalogo</code>, <code>limite</code> y <code>estilo</code>, por ejemplo: <code>[catalogo_grid marca="prezenza" limite="8" estilo="lista"]</code>.
 				Ninguno es obligatorio — <code>[catalogo_grid]</code> solo ya funciona.
 			</p>
+			<ul style="list-style: disc; margin-left: 1.5rem;">
+				<li><code>categoria="chamarras"</code> — fija la categoría; el visitante no puede cambiarla.</li>
+				<li><code>categoria_inicial="chamarras"</code> — la categoría que se ve al entrar; el visitante sí puede cambiar a otra.</li>
+				<li><code>orden="shell, atractive, hydro, reaction"</code> — esos productos salen primero y en ese orden; el resto va después.
+					Cada palabra se busca en el slug del producto (<code>shell</code> encuentra <code>chamarra-shell</code>); también sirve el slug completo.
+					Una misma lista vale para todas las categorías, ej. <code>orden="shell, hydro, polo, versus"</code>.</li>
+			</ul>
 			<p>
 				<code>estilo</code> controla solo el acomodo visual (no afecta qué productos se muestran):
 			</p>
