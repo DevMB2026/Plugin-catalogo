@@ -4,7 +4,7 @@ Tags: catálogo, api, productos
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.18.0
+Stable tag: 1.18.1
 License: proprietary
 
 Consume el catálogo central de productos (API propia) para mostrarlo en WordPress, sin precios y sin depender de una llamada a la API en cada visita.
@@ -24,6 +24,9 @@ Fase 5A (esta versión): solo catálogo público, sin precios y sin autenticaci�
 5. Usa `[catalogo_hero]` para el hero animado con los productos destacados. Admite `titulo`, `subtitulo`, `boton`, `enlace` y `limite` — ninguno obligatorio.
 
 == Changelog ==
+
+= 1.18.1 =
+* `orden`: si escribes el slug completo de un producto, esa coincidencia exacta gana sobre las parciales. Ej. en `orden="camisa-pescadora, …, camisa-pescadora-con-reflejantes"` la de reflejantes queda en su propio lugar en vez de salir pegada a `camisa-pescadora`.
 
 = 1.18.0 =
 * Nuevo atributo `orden` en `[catalogo_grid]`: los productos cuyo slug contiene esas palabras salen primero, en el orden escrito (ej. `orden="shell, atractive, hydro, reaction"`); el resto va después con el orden de siempre. Cada palabra se compara como palabra completa del slug (`shell` encuentra `chamarra-shell`) y una misma lista sirve para todas las categorías.
