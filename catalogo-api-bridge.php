@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Catálogo API Bridge
  * Description:       Consume el catálogo central de productos vía API (sin precios). Guarda una base de datos local que se sincroniza sola cada ~2 minutos, para no depender de una llamada en vivo por visita.
- * Version:           1.18.1
+ * Version:           1.19.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Prezenza
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Acceso directo no permitido.
 }
 
-define( 'CATALOGO_API_BRIDGE_VERSION', '1.18.1' );
+define( 'CATALOGO_API_BRIDGE_VERSION', '1.19.0' );
 define( 'CATALOGO_API_BRIDGE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CATALOGO_API_BRIDGE_URL', plugin_dir_url( __FILE__ ) );
 

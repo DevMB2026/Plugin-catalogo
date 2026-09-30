@@ -37,9 +37,11 @@
 	function filterByColor(imgs, colorValueId) {
 		if (!colorValueId) return imgs;
 		var propias = imgs.filter(function (m) { return m.optionValue && m.optionValue === colorValueId; });
+		// Si el color tiene fotos propias, SOLO esas; la galería general (sin
+		// color) solo cuando el color no tiene ninguna. Misma regla que en PHP.
+		if (propias.length) return propias;
 		var genericas = imgs.filter(function (m) { return !m.optionValue; });
-		var out = propias.concat(genericas);
-		return out.length ? out : imgs;
+		return genericas.length ? genericas : imgs;
 	}
 
 	// Eje de color entre las options del producto: mismo criterio que ya usa
