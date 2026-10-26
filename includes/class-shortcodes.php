@@ -13,6 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * "estilo" es puramente visual (no toca qué productos se muestran):
  * cuadricula (por defecto), lista o compacta. No afecta la llamada a la
  * API ni su caché — solo cambia clases CSS en el render.
+ *
+ * Búsqueda: cualquier formulario GET que apunte a la página del catálogo
+ * con un campo name="cab_buscar" filtra el grid por palabras (nombre, SKU
+ * o slug) — ver Catalogo_API_Bridge_Store::search_words().
  */
 class Catalogo_API_Bridge_Shortcodes {
 
@@ -48,6 +52,16 @@ class Catalogo_API_Bridge_Shortcodes {
 		// fijarla — el visitante puede cambiar a otra, y "Quitar filtro" lleva a
 		// ?cab_categoria=todas para ver todo el catálogo (sin ese valor especial,
 		// quitar el filtro volvería a caer en la categoría inicial).
+		//
+		// Búsqueda (?cab_buscar=camisa+pescadora, p.ej. desde el buscador del
+		// header del sitio): no se llama "s" porque ese parámetro lo secuestra
+		// la búsqueda nativa de WordPress. Mientras hay búsqueda se ignora
+		// `categoria_inicial` (buscar desde el header debe abarcar todo el
+		// catálogo) y se sube el límite a 100, porque el grid no pagina y un
+		// resultado que quede fuera de los primeros 12 nunca se vería.
+		$busqueda = isset( $_GET['cab_buscar'] ) ? sanitize_text_field( wp_unslash( $_GET['cab_buscar'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$busqueda = mb_substr( $busqueda, 0, 100, 'UTF-8' );
+
 		$categoria_fija    = sanitize_title( $atts['categoria'] );
 		$categoria_inicial = sanitize_title( $atts['categoria_inicial'] );
 		$categoria_actual  = $categoria_fija;
@@ -57,7 +71,7 @@ class Catalogo_API_Bridge_Shortcodes {
 				$categoria_actual = '';
 			} elseif ( '' !== $pedida ) {
 				$categoria_actual = $pedida;
-			} else {
+			} elseif ( '' === $busqueda ) {
 				$categoria_actual = $categoria_inicial;
 			}
 		}
@@ -66,7 +80,8 @@ class Catalogo_API_Bridge_Shortcodes {
 			'brand'    => sanitize_title( $atts['marca'] ),
 			'category' => $categoria_actual,
 			'catalogo' => sanitize_title( $atts['catalogo'] ),
-			'limit'    => max( 1, min( 100, (int) $atts['limite'] ) ),
+			'q'        => $busqueda,
+			'limit'    => '' !== $busqueda ? 100 : max( 1, min( 100, (int) $atts['limite'] ) ),
 			// Orden manual (ej. orden="shell, atractive, hydro, reaction"): esos
 			// productos primero y en ese orden, el resto después. Una sola lista
 			// sirve para todas las categorías — cada término solo coincide con

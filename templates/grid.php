@@ -9,12 +9,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var array  $destacados Hasta 3 productos marcados como destacados en el panel admin.
  * @var string $categoria_actual Slug de la categoría actualmente filtrada (fija por shortcode o elegida por el visitante).
  * @var string $categoria_fija_activa Slug fijado en el atributo "categoria" del shortcode, si lo hay — si no está vacío, el visitante no puede cambiarlo desde aquí.
+ * @var string $busqueda Texto buscado (?cab_buscar=), ya saneado — vacío si no hay búsqueda.
  */
 $estilo                = isset( $estilo ) && in_array( $estilo, Catalogo_API_Bridge_Shortcodes::ESTILOS_VALIDOS, true ) ? $estilo : 'cuadricula';
 $categorias            = isset( $categorias ) && is_array( $categorias ) ? $categorias : array();
 $destacados            = isset( $destacados ) && is_array( $destacados ) ? $destacados : array();
 $categoria_actual      = isset( $categoria_actual ) ? $categoria_actual : '';
 $categoria_fija_activa = isset( $categoria_fija_activa ) ? $categoria_fija_activa : '';
+$busqueda              = isset( $busqueda ) ? $busqueda : '';
 
 // El filtro de categoría (botones grandes + lista del aside) solo se ofrece
 // si el dueño de la página no fijó ya una categoría en el shortcode, y si
@@ -42,8 +44,27 @@ $mostrar_filtro_categoria = empty( $categoria_fija_activa ) && count( $categoria
 
 	<div class="cab-catalog-layout">
 		<div class="cab-catalog-main">
+			<?php if ( '' !== $busqueda ) : ?>
+				<div class="cab-search-notice">
+					<span>
+						<?php if ( ! empty( $result['ok'] ) && ! empty( $result['data'] ) ) : ?>
+							<?php
+							$total_busqueda = isset( $result['pagination']['total'] ) ? (int) $result['pagination']['total'] : count( $result['data'] );
+							echo esc_html( sprintf( 1 === $total_busqueda ? '%d resultado para' : '%d resultados para', $total_busqueda ) );
+							?>
+						<?php else : ?>
+							Resultados para
+						<?php endif; ?>
+						<strong>«<?php echo esc_html( $busqueda ); ?>»</strong>
+					</span>
+					<a class="cab-search-clear" href="<?php echo esc_url( remove_query_arg( 'cab_buscar' ) ); ?>">Quitar búsqueda</a>
+				</div>
+			<?php endif; ?>
+
 			<?php if ( empty( $result['ok'] ) ) : ?>
 				<?php include Catalogo_API_Bridge_Templates::locate( 'error.php' ); ?>
+			<?php elseif ( empty( $result['data'] ) && '' !== $busqueda ) : ?>
+				<p class="catalogo-api-bridge-empty">No encontramos productos para «<?php echo esc_html( $busqueda ); ?>». Prueba con otra palabra, por ejemplo solo «camisa» o «chamarra».</p>
 			<?php elseif ( empty( $result['data'] ) ) : ?>
 				<p class="catalogo-api-bridge-empty">No hay productos disponibles con estos filtros.</p>
 			<?php else : ?>
