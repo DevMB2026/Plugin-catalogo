@@ -15,8 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * API ni su caché — solo cambia clases CSS en el render.
  *
  * Búsqueda: cualquier formulario GET que apunte a la página del catálogo
- * con un campo name="cab_buscar" filtra el grid por palabras (nombre, SKU
- * o slug) — ver Catalogo_API_Bridge_Store::search_words().
+ * con un campo name="cab_buscar" filtra el grid por palabras (nombre, SKU,
+ * slug o categoría) — ver Catalogo_API_Bridge_Store::search_words().
+ * También acepta name="cdb_buscar" (el del plugin del distribuidor), para
+ * que un mismo header sirva en cualquiera de los dos sitios.
  */
 class Catalogo_API_Bridge_Shortcodes {
 
@@ -59,7 +61,12 @@ class Catalogo_API_Bridge_Shortcodes {
 		// `categoria_inicial` (buscar desde el header debe abarcar todo el
 		// catálogo) y se sube el límite a 100, porque el grid no pagina y un
 		// resultado que quede fuera de los primeros 12 nunca se vería.
-		$busqueda = isset( $_GET['cab_buscar'] ) ? sanitize_text_field( wp_unslash( $_GET['cab_buscar'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$busqueda = '';
+		foreach ( array( 'cab_buscar', 'cdb_buscar' ) as $param ) {
+			if ( '' === $busqueda && isset( $_GET[ $param ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$busqueda = trim( sanitize_text_field( wp_unslash( $_GET[ $param ] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			}
+		}
 		$busqueda = mb_substr( $busqueda, 0, 100, 'UTF-8' );
 
 		$categoria_fija    = sanitize_title( $atts['categoria'] );

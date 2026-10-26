@@ -22,6 +22,11 @@ $busqueda              = isset( $busqueda ) ? $busqueda : '';
 // si el dueño de la página no fijó ya una categoría en el shortcode, y si
 // hay más de una entre las que elegir — con una sola no hay nada que filtrar.
 $mostrar_filtro_categoria = empty( $categoria_fija_activa ) && count( $categorias ) > 1;
+
+// Elegir una categoría (o quitar el filtro) empieza de cero: suelta la
+// búsqueda activa — si no, al buscar "camisa pescadora" y luego dar clic
+// en Camisas solo seguían saliendo esas dos.
+$quitar_al_filtrar = array( 'cab_buscar', 'cdb_buscar' );
 ?>
 <div class="catalogo-api-bridge-grid-wrap">
 	<?php if ( $mostrar_filtro_categoria ) : ?>
@@ -29,7 +34,7 @@ $mostrar_filtro_categoria = empty( $categoria_fija_activa ) && count( $categoria
 			<h2 class="cab-cats-title">Categorías</h2>
 			<div class="cab-cats-row">
 				<?php foreach ( $categorias as $cat ) : ?>
-					<a class="cab-cat-btn<?php echo ( $cat['slug'] === $categoria_actual ) ? ' active' : ''; ?>" href="<?php echo esc_url( add_query_arg( 'cab_categoria', $cat['slug'] ) ); ?>">
+					<a class="cab-cat-btn<?php echo ( $cat['slug'] === $categoria_actual ) ? ' active' : ''; ?>" href="<?php echo esc_url( add_query_arg( 'cab_categoria', $cat['slug'], remove_query_arg( $quitar_al_filtrar ) ) ); ?>">
 						<span class="cab-cat-btn-img">
 							<?php if ( $cat['imagen'] ) : ?>
 								<img src="<?php echo esc_url( $cat['imagen'] ); ?>" alt="<?php echo esc_attr( $cat['nombre'] ); ?>" loading="lazy" />
@@ -57,7 +62,7 @@ $mostrar_filtro_categoria = empty( $categoria_fija_activa ) && count( $categoria
 						<?php endif; ?>
 						<strong>«<?php echo esc_html( $busqueda ); ?>»</strong>
 					</span>
-					<a class="cab-search-clear" href="<?php echo esc_url( remove_query_arg( 'cab_buscar' ) ); ?>">Quitar búsqueda</a>
+					<a class="cab-search-clear" href="<?php echo esc_url( remove_query_arg( $quitar_al_filtrar ) ); ?>">Quitar búsqueda</a>
 				</div>
 			<?php endif; ?>
 
@@ -82,12 +87,12 @@ $mostrar_filtro_categoria = empty( $categoria_fija_activa ) && count( $categoria
 					<div class="cab-sidebar-block">
 						<h3 class="cab-sidebar-title">Categorías del producto</h3>
 						<?php if ( $categoria_actual ) : ?>
-							<a class="cab-cat-list-clear" href="<?php echo esc_url( ! empty( $categoria_inicial ) ? add_query_arg( 'cab_categoria', 'todas' ) : remove_query_arg( 'cab_categoria' ) ); ?>">Quitar filtro</a>
+							<a class="cab-cat-list-clear" href="<?php echo esc_url( ! empty( $categoria_inicial ) ? add_query_arg( 'cab_categoria', 'todas', remove_query_arg( $quitar_al_filtrar ) ) : remove_query_arg( array_merge( array( 'cab_categoria' ), $quitar_al_filtrar ) ) ); ?>">Quitar filtro</a>
 						<?php endif; ?>
 						<ul class="cab-cat-list">
 							<?php foreach ( $categorias as $cat ) : ?>
 								<li>
-									<a class="cab-cat-list-link<?php echo ( $cat['slug'] === $categoria_actual ) ? ' active' : ''; ?>" href="<?php echo esc_url( add_query_arg( 'cab_categoria', $cat['slug'] ) ); ?>">
+									<a class="cab-cat-list-link<?php echo ( $cat['slug'] === $categoria_actual ) ? ' active' : ''; ?>" href="<?php echo esc_url( add_query_arg( 'cab_categoria', $cat['slug'], remove_query_arg( $quitar_al_filtrar ) ) ); ?>">
 										<span><?php echo esc_html( $cat['nombre'] ); ?></span>
 										<span class="cab-cat-list-count"><?php echo (int) $cat['total']; ?></span>
 									</a>

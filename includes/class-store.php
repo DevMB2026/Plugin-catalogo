@@ -234,11 +234,14 @@ class Catalogo_API_Bridge_Store {
 			}
 		}
 		// Búsqueda por palabras: cada una debe aparecer (en cualquier orden) en
-		// el nombre, el SKU o el slug — "camisa pescadora" encuentra "Camisa
-		// Pescadora Manga Larga", y "camisa" sola trae todas las camisas.
+		// el nombre, el SKU, el slug o la categoría — "camisa pescadora"
+		// encuentra "Camisa Pescadora Manga Larga" y "... Manga Corta", y
+		// "camisa" sola trae todo lo de la categoría Camisas aunque el nombre
+		// del producto no diga "camisa".
 		foreach ( self::search_words( isset( $args['q'] ) ? $args['q'] : '' ) as $word ) {
-			$where[] = '(nombre LIKE %s OR sku LIKE %s OR slug LIKE %s)';
+			$where[] = '(t.nombre LIKE %s OR t.sku LIKE %s OR t.slug LIKE %s OR t.category_slug LIKE %s)';
 			$like    = '%' . $wpdb->esc_like( $word ) . '%';
+			$vals[]  = $like;
 			$vals[]  = $like;
 			$vals[]  = $like;
 			$vals[]  = $like;

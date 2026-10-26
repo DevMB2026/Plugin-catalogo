@@ -4,7 +4,7 @@ Tags: catálogo, api, productos
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.21.0
+Stable tag: 1.21.1
 License: proprietary
 
 Consume el catálogo central de productos (API propia) para mostrarlo en WordPress, sin precios y sin depender de una llamada a la API en cada visita.
@@ -24,6 +24,10 @@ Fase 5A (esta versión): solo catálogo público, sin precios y sin autenticaci�
 5. Usa `[catalogo_hero]` para el hero animado con los productos destacados. Admite `titulo`, `subtitulo`, `boton`, `enlace` y `limite` — ninguno obligatorio.
 
 == Changelog ==
+
+= 1.21.1 =
+* Búsqueda: también coincide con la categoría ("camisa" trae todo lo de Camisas aunque el nombre no lo diga) y acepta el campo `cdb_buscar` además de `cab_buscar`, para que el mismo header sirva con cualquiera de los dos plugins.
+* Al dar clic en una categoría (botones, lista del aside o "Quitar filtro") se quita la búsqueda activa: antes, después de buscar "camisa pescadora", la categoría Camisas seguía mostrando solo esos resultados.
 
 = 1.21.0 =
 * Búsqueda de productos: un formulario GET con el campo `cab_buscar` que apunte a la página del catálogo (p. ej. el buscador del header) filtra el grid por palabras en nombre, SKU o slug, en cualquier orden y aceptando plurales ("camisas pescadoras" encuentra "Camisa Pescadora"). Muestra el número de resultados y un enlace para quitar la búsqueda.
