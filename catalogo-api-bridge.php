@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Catálogo API Bridge
  * Description:       Consume el catálogo central de productos vía API (sin precios). Guarda una base de datos local que se sincroniza sola cada ~2 minutos, para no depender de una llamada en vivo por visita.
- * Version:           1.21.1
+ * Version:           1.22.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Prezenza
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Acceso directo no permitido.
 }
 
-define( 'CATALOGO_API_BRIDGE_VERSION', '1.21.1' );
+define( 'CATALOGO_API_BRIDGE_VERSION', '1.22.0' );
 define( 'CATALOGO_API_BRIDGE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CATALOGO_API_BRIDGE_URL', plugin_dir_url( __FILE__ ) );
 
@@ -24,6 +24,7 @@ require_once CATALOGO_API_BRIDGE_DIR . 'includes/class-sync.php';
 require_once CATALOGO_API_BRIDGE_DIR . 'includes/class-templates.php';
 require_once CATALOGO_API_BRIDGE_DIR . 'includes/class-settings.php';
 require_once CATALOGO_API_BRIDGE_DIR . 'includes/class-rewrite.php';
+require_once CATALOGO_API_BRIDGE_DIR . 'includes/class-seo.php';
 require_once CATALOGO_API_BRIDGE_DIR . 'includes/class-shortcodes.php';
 require_once CATALOGO_API_BRIDGE_DIR . 'includes/class-colors.php';
 
@@ -63,6 +64,7 @@ add_action(
 	function () {
 		Catalogo_API_Bridge_Settings::init();
 		Catalogo_API_Bridge_Rewrite::init();
+		Catalogo_API_Bridge_Seo::init();
 		Catalogo_API_Bridge_Shortcodes::init();
 		Catalogo_API_Bridge_Sync::init();
 	}

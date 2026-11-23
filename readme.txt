@@ -4,7 +4,7 @@ Tags: catálogo, api, productos
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.21.1
+Stable tag: 1.22.0
 License: proprietary
 
 Consume el catálogo central de productos (API propia) para mostrarlo en WordPress, sin precios y sin depender de una llamada a la API en cada visita.
@@ -24,6 +24,9 @@ Fase 5A (esta versión): solo catálogo público, sin precios y sin autenticaci�
 5. Usa `[catalogo_hero]` para el hero animado con los productos destacados. Admite `titulo`, `subtitulo`, `boton`, `enlace` y `limite` — ninguno obligatorio.
 
 == Changelog ==
+
+= 1.22.0 =
+* SEO de la ficha de producto: ahora imprime canonical, meta description (con el texto del producto), Open Graph/Twitter con la foto principal y un Schema `Product` (sin precio). Si Yoast está activo, se silencian sus versiones en la ficha para no duplicar. El Schema se apaga con `add_filter( 'cab_seo_product_schema', '__return_false' );`. Los productos inactivos o inexistentes siguen dando 404 y no llevan nada de esto.
 
 = 1.21.1 =
 * Búsqueda: también coincide con la categoría ("camisa" trae todo lo de Camisas aunque el nombre no lo diga) y acepta el campo `cdb_buscar` además de `cab_buscar`, para que el mismo header sirva con cualquiera de los dos plugins.
